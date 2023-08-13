@@ -1,16 +1,12 @@
 const API_KEY = `46ad7457603b9b0104e633e78cd60e16`;
 const searchTemperature = () => {
     const city = document.getElementById('city-name').value;
-  //  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-  
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
     const hourlyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
-
     fetch(currentWeatherUrl)
     .then(res => res.json())
     .then(data => {
         displayCurrentWeather(data);  
-
         fetch(hourlyForecastUrl)  // Fetch the hourly forecast data
             .then(res => res.json())
             .then(hourlyData => {
@@ -25,8 +21,6 @@ const searchTemperature = () => {
         console.error('Error fetching current weather:', error);
     });
 }
-
-
 const setInnerText = (id, text) => {
     document.getElementById(id).innerText = text;
 }
@@ -66,7 +60,7 @@ setInnerText('date', `Today: ${date.toDateString()}`);//date
  setInnerText('sunrise', `- ${sunrise.toLocaleTimeString()}`); //sunrise
  
  const sunset = new Date(temperature.sys.sunset * 1000);
- setInnerText('sunset', ` - ${sunset.toLocaleTimeString()}`); //unset
+ setInnerText('sunset', ` - ${sunset.toLocaleTimeString()}`); //sunset
 
 
  // Set weather icon
@@ -75,8 +69,7 @@ setInnerText('date', `Today: ${date.toDateString()}`);//date
  imgIcon.setAttribute('src', url);
 }    
 
-
-
+     // weather hourly
 const displayHourlyForecast = hourlyForecast => {
     const hourlyForecastContainer = document.getElementById('hourly-forecast');
     hourlyForecastContainer.innerHTML = '';
@@ -93,6 +86,7 @@ const displayHourlyForecast = hourlyForecast => {
             data: []
         }]
     };
+
 
     hourlyForecast.forEach(hour => {
         const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
