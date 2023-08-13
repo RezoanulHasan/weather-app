@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Weather </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css" rel="stylesheet" type="text/css" />
+ <!--use font-awesome -->
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+ <!--icon-->
+ <link rel="icon" type="image/x-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1I9FYBYhnvRhP9631_9cjCF3Gg04ECVzqYjR55sJLigX5oefMuiG5YO8S46JvalWe5w0&usqp=CAU">
+ 
+</head>
+
+
+
+<body class="m-5 rounded-lg">
+<div class="flex flex-col lg:flex-row overflow-hidden rounded-lg">
+
+<div  class="lg:w-1/3  md:w-1/4  w-full ody">
+ <div class="container mx-auto py-10">
+<div class="grid grid-cols-3 mb-10 m-2">
+<i   class="fa-solid fa-square-plus text-white text-2xl"></i>
+<i class="fa-solid fa-location-crosshairs text-white text-2xl "></i>
+<div class="grid grid-cols-3" >
+    <h1 class="text-white font-bold">°C</h1>
+    <i class="fa-solid fa-toggle-off text-white text-2xl"></i>
+   <h1 class="text-white font-bold ">°F</h1>
+</div>
+</div>  
+
+
+<div class="lg:mt-20 mt-5 grid grid-cols-2 mb-5 m-2 ">
+    <div>
+        <div class=" flex gap-3 ">
+            <i class="fa-solid fa-location-arrow text-yellow-200 mt-4" ></i> 
+        <h1 id="city" class="text-xl text-white ">    
+    City</h1><!-- Chity-->
+</div>
+
+<div class=" flex gap-3 ">
+<i class="fa-regular fa-calendar-days text-yellow-200 mt-1"></i>
+        <h3 id="date" class="front-bold  text-white ">Today</h3> <!-- Date -->
+   
+    </div>
+    </div>
+<div>
+    <div class="flex gap-3 ">
+    <i class="fa-solid fa-sun  mt-1 text-yellow-200 "></i>
+     <h3 id="sunrise" class="text-white" >   sunrise </h3> <!-- Sunrise -->
+    </div>
+
+    <div class="flex   gap-3 ">
+        <i class="fa-regular fa-sun mt-1 text-yellow-200 "></i>
+    <h3 id="sunset"   class="text-white">    sunset </h3> <!-- Sunset -->
+</div>
+
+</div>
+</div>
+ <form class="w-full m-4 mx-auto py-5"> 
+ <div class="flex items-center border-b border-b-2 border-red-500 py-2">
+     <input id="city-name" type="text" class="appearance-none bg-transparent border-none w-full text-white mr-3  py-1 px-3 leading-tight focus:outline-none" placeholder="Enter City name for Weather ...">
+    <button onclick="searchTemperature()" type="button" class="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-sm border-4 text-white py-1 px-2 rounded">Search</button>
+     </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <div class="card-actions justify-center">       
+<img id="weather-icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+</div> 
+<div class="grid  grid-cols-3 mt-4">
+    <i class="fa-solid fa-less-than   mt-5"></i>
+    <h3 class="text-3xl" ><span id="temperature" class="text-5xl  font-semibold">38.06°</h3>
+    <i class="fa-solid m-5  fa-greater-than mt-5"></i>
+</div>
+<h1 id="condition" class="text-2xl font-semibold mb-20">Clouds</h1>
+
+
+<div class="mt-10  grid grid-cols-3 gap-10 m-2 ">
+    <div class="flex gap-3 ">
+    <i class="fas fa-thermometer-half text-2xl mt-1 text-yellow-200 "></i>
+     <h3 id="temp-max" class="text-white" > Temp-max   </h3> <!-- Sunrise -->
+</div>
+
+<div class="flex gap-3 ">
+    <i class="fas fa-thermometer-half text-2xl mt-1 text-yellow-200 "></i>
+     <h3 id="pressure" class="text-white" >Pressure  </h3> <!-- Sunrise -->
+</div>
+
+
+<div class="flex gap-3 ">
+    <i class="fas fa-temperature-low text-2xl mt-1 text-yellow-200 "></i>
+     <h3 id="temp-min" class="text-white" > Temp-min  </h3> <!-- Sunrise -->
+</div>
+
+</div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+<div class="w-full mt-10 lg:mt-0 md:mt-0 dy  ">
+  <!-- section 1 -->
+
+    <div class="m-2 container">
+        <div class="header text-center font-bold text-white   text-xl">
+            <h1>Hourly Weather Forecast</h1>
+        </div>
+        <div class="content">
+            <div class="hourly-forecast bg-black" id="hourly-forecast"></div>
+            <div class="chart-container bg-black ">
+                <canvas id="hourly-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+
+ <!-- section 2-->
+<div class="m-5  grid lg:grid-cols-3 md:grid-cos-3  grid-cols-1 gap-5 ">
+  <!-- Humidity -->
+    <div class="card w-full bg-gray-400 shadow-2xl">
+        <div class="card-body">
+            <div class="grid grid-cols-2 gap-20">
+          <h2 class="card-title ">Humidity</h2> 
+          <i class=" bg-black text-center fa-solid fa-droplet m-6 text-xl  text-red-500"></i>
+        </div>
+          <h3 id="humidity" class="  text-center text-3xl"> 0%</h3> <!-- Humidity -->
+
+        <div class="card-actions grid grid-cols-3 ">
+            <div>
+        <h1 class=" ">Good</h1>
+            <progress class="progress progress-success w-15" value="100" max="100"></progress>
+        </div>
+        <div>
+            <h1 class=" ">Normal</h1>
+   <progress class="progress progress-success w-15" value="100" max="100"></progress>
+        </div>
+        <div>
+            <h1 class=" ">Bad</h1>
+            <progress class="progress progress-success w-15" value="50" max="100"></progress>
+        </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wind Speed -->
+
+      <div class="card w-full  bg-gray-400   shadow-2xl">
+        <div class="card-body">
+            <div class="grid grid-cols-2 gap-20">
+          <h2 class="card-title">Wind</h2> 
+          <i class="fa-solid fa-wind m-6 text-xl bg-black   text-red-500"></i>       
+        </div>
+        <h3 id="wind" class="text-black text-center text-3xl">0 km/h</h3> <!-- Wind Speed -->
+      </div>
+    </div>
+      
+      
+<!-- Precipitation-->
+<div class="card w-full  bg-gray-400   shadow-2xl">
+    <div class="card-body">
+        <div class="grid grid-cols-2 gap-20">
+      <h2 class="card-title ">Precipitation </h2> 
+      <i class="fa-solid text-center  fa-cloud-rain m-6 text-xl bg-black   text-red-500 "></i>
+
+    </div>
+  
+    <h3 id="precipitation" class="text-center text-3xl">0 mm</h3> <!-- Precipitation -->
+    <div class="card-actions grid grid-cols-10 ">
+        <div>
+    <h1 class=" ">0</h1>
+        <progress class="progress progress-success w-15" value="100" max="100"></progress>
+    </div>
+    <div>
+        <h1 class=" ">10</h1>
+<progress class="progress progress-success w-15" value="100" max="50"></progress>
+    </div>
+    <div>
+        <h1 class=" ">20</h1>
+        <progress class="progress progress-success w-15" value="75" max="100"></progress>
+    </div>
+
+    <div>
+        <h1 class=" ">30</h1>
+        <progress class="progress progress-success w-15" value="0" max="100"></progress>
+    </div>
+    <div>
+    <h1 class=" ">40</h1>
+    <progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+<div>
+    <h1 class=" ">50</h1>
+    <progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+<div>
+<h1 class=" ">60</h1>
+<progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+<div>
+    <h1 class=" ">70</h1>
+    <progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+<div>
+    <h1 class=" ">80</h1>
+    <progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+<div>
+<h1 class=" ">90</h1>
+<progress class="progress progress-success w-15" value="0" max="100"></progress>
+</div>
+      </div>
+        </div>
+      </div>
+
+      
+
+<!--UV Index  -->
+    <div class="card w-full  bg-gray-400   shadow-2xl">
+       <div class="card-body">
+        <div class="grid grid-cols-2 gap-20">
+      <h2 class="card-title ">UV Index </h2> 
+      <i class="fa-solid fa-sun text-center m-6 text-xl bg-black   text-red-500 "></i>
+    </div>
+    <h3  class="text-center text-3xl">3 medium</h3> <!--UV Index  -->
+
+
+    <div class="card-actions grid grid-cols-5 ">
+        <div>
+    <h1 class=" ">0-2</h1>
+        <progress class="progress progress-success w-15" value="100" max="100"></progress>
+    </div>
+    <div>
+        <h1 class=" ">3-5</h1>
+<progress class="progress progress-success w-15" value="50" max="100"></progress>
+    </div>
+    <div>
+        <h1 class=" ">6-7</h1>
+        <progress class="progress progress-success w-15" value="0" max="100"></progress>
+    </div>
+
+    <div>
+        <h1 class=" ">8-19</h1>
+        <progress class="progress progress-success w-15" value="0" max="100"></progress>
+    </div>
+
+    <div>
+        <h1 class=" ">11+</h1>
+        <progress class="progress progress-success w-15" value="0" max="100"></progress>
+    </div>
+      </div>
+   </div>
+      </div>
+
+
+
+        
+<!-- Feels Like -->
+      <div class="card w-full bg-gray-400    shadow-2xl">
+        <div class="card-body">
+            <div class="grid grid-cols-2 gap-20">
+          <h2 class="card-title ">Feels-like</h2> 
+          <i class="fa-solid fa-temperature-full text-center m-6 text-xl bg-black  text-red-500 "></i>
+        </div>
+     <h3 id="feels-like" class="text-center text-3xl">0 °C</h3> <!-- Feels Like -->
+     <div class="card-actions ">
+        <div class="grid grid-cols-3 gap-20" >
+<h1>0</h1>    
+<h1>25</h1>      
+<h1>50</h1>  
+    </div>
+    <progress class="progress progress-success w-56" value="70" max="100"></progress>
+      </div>
+          </div>
+        </div>
+    
+
+
+<!--Change to rain -->
+<div class="card w-full  bg-gray-400   shadow-2xl">
+    <div class="card-body">
+        <div class="grid grid-cols-2 gap-20">
+      <h2 class="card-title ">Chance to rain</h2> 
+      <i class="fa-solid  fa-cloud-moon-rain  text-center m-6 text-xl bg-black  text-red-500 "></i>
+    </div>
+ <h3  class="text-center text-3xl">45 % </h3> <!-- Feels Like -->
+ <div class="card-actions ">
+    <div class="grid grid-cols-5 gap-6" >
+<h1>0</h1>    
+<h1>25</h1>      
+<h1>50</h1>  
+<h1>75</h1>  
+<h1>100</h1>  
+</div>
+<progress class="progress progress-success w-56" value="45" max="100"></progress>
+  </div>
+      </div>
+    </div>   
+</div>  
+</div>
+</body>
+<!--add js tag -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/app.js"></script>
+</html>
