@@ -1,5 +1,5 @@
 
-# site name:weather-app
+# Web-site name: weather-app
 # Tecnology use:
 - HTML,
 - CSS(tailwinds)
