@@ -11,4 +11,4 @@
 -  Hourly Weather Forecast
 -  line chat by temperature
 
-## live link:https://illustrious-conkies-0fc044.netlify.app/
+## live link:https://rezoanulhasan.github.io/weather-app/
