@@ -1,7 +1,9 @@
-#site name: weather-app
 
-
-# Technology use: HTML,CSS(tailwinds),java-script
+# site name:weather-app
+# Tecnology use:
+- HTML,
+- CSS(tailwinds)
+- java-script
 
 # Feature :
 -  Search options by City name.
