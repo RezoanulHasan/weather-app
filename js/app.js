@@ -1,27 +1,47 @@
 const API_KEY = `46ad7457603b9b0104e633e78cd60e16`;
+
+
+const showPopup = () => {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'flex';
+
+    const closePopupButton = document.getElementById('close-popup');
+    closePopupButton.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+};
+
 const searchTemperature = () => {
     const city = document.getElementById('city-name').value;
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-    const hourlyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
+
     fetch(currentWeatherUrl)
-    .then(res => res.json())
-    .then(data => {
-        displayCurrentWeather(data); 
+        .then(res => res.json())
+        .then(data => {
+            if (data.cod === '404') {
+                showPopup();
+                return;
+            }
 
-        fetch(hourlyForecastUrl)  // Fetch the hourly forecast data
-            .then(res => res.json())
-            .then(hourlyData => {
-                displayHourlyForecast(hourlyData.list); // Display the hourly forecast
-            })
-            .catch(error => {
-                console.error('Error fetching hourly forecast:', error);
-            });
-    })
+            displayCurrentWeather(data);
 
-    .catch(error => {
-        console.error('Error fetching current weather:', error);
-    });
+            const hourlyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
+            fetch(hourlyForecastUrl)
+                .then(res => res.json())
+                .then(hourlyData => {
+                    displayHourlyForecast(hourlyData.list);
+                })
+                .catch(error => {
+                    console.error('Error fetching hourly forecast:', error);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching current weather:', error);
+        });
 }
+
+
+
 
 //
 
@@ -109,9 +129,9 @@ const displayHourlyForecast = hourlyForecast => {
         forecastItem.classList.add('hourly-forecast-item');
         forecastItem.innerHTML = `
             <div class="forecast-time">${time}</div>
-            <div class="forecast-pop">Rain ${pop}%</div>
+            <div class="forecast-pop">Rain-${pop}%</div>
             <div class="weather-icon"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="Weather Icon"></div>
-            <div class="forecast-temperature">${temperature}°C</div>
+            <div class="forecast-temperature">tem-${temperature}°C</div>
         `;
 
         hourlyForecastContainer.appendChild(forecastItem);
@@ -129,4 +149,4 @@ const displayHourlyForecast = hourlyForecast => {
             }
         }
     });
-}
+} 
