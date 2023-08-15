@@ -6,7 +6,8 @@ const searchTemperature = () => {
     fetch(currentWeatherUrl)
     .then(res => res.json())
     .then(data => {
-        displayCurrentWeather(data);  
+        displayCurrentWeather(data); 
+
         fetch(hourlyForecastUrl)  // Fetch the hourly forecast data
             .then(res => res.json())
             .then(hourlyData => {
@@ -21,9 +22,14 @@ const searchTemperature = () => {
         console.error('Error fetching current weather:', error);
     });
 }
+
+//
+
 const setInnerText = (id, text) => {
     document.getElementById(id).innerText = text;
 }
+
+
 
 const displayCurrentWeather = temperature => {
     setInnerText('city', temperature.name);
@@ -57,10 +63,10 @@ setInnerText('date', `Today: ${date.toDateString()}`);//date
 
 
  const sunrise = new Date(temperature.sys.sunrise * 1000);
- setInnerText('sunrise', `- ${sunrise.toLocaleTimeString()}`); //sunrise
+ setInnerText('sunrise', `sunrise- ${sunrise.toLocaleTimeString()}`); //sunrise
  
  const sunset = new Date(temperature.sys.sunset * 1000);
- setInnerText('sunset', ` - ${sunset.toLocaleTimeString()}`); //sunset
+ setInnerText('sunset', ` sunset- ${sunset.toLocaleTimeString()}`); //sunset
 
 
  // Set weather icon
@@ -68,6 +74,8 @@ setInnerText('date', `Today: ${date.toDateString()}`);//date
  const imgIcon = document.getElementById('weather-icon');
  imgIcon.setAttribute('src', url);
 }    
+
+
 
      // weather hourly
 const displayHourlyForecast = hourlyForecast => {
@@ -92,6 +100,7 @@ const displayHourlyForecast = hourlyForecast => {
         const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const temperature = hour.main.temp.toFixed(1);
         const pop = hour.pop || 0;
+        const weatherIcon = hour.weather[0].icon; 
 
         chartData.labels.push(time);
         chartData.datasets[0].data.push(temperature);
@@ -101,6 +110,7 @@ const displayHourlyForecast = hourlyForecast => {
         forecastItem.innerHTML = `
             <div class="forecast-time">${time}</div>
             <div class="forecast-pop">Rain ${pop}%</div>
+            <div class="weather-icon"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="Weather Icon"></div>
             <div class="forecast-temperature">${temperature}°C</div>
         `;
 

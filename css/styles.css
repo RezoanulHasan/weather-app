@@ -19,10 +19,11 @@
 }
 
 .hourly-forecast-item {
-    background-color: #f4f4f4;
+    background-color: #1b1a1a;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
+    color: aliceblue;
 }
 
 .chart-container {
@@ -31,9 +32,10 @@
     margin: 0 auto;
 }
 .ody{
-    background: url(https://images.unsplash.com/photo-1595147389795-37094173bfd8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60) no-repeat;
+    background-color: #1b1a1a;
     background-size: cover;
 
+  
 }
 .dy{
     

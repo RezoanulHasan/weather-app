@@ -19,9 +19,9 @@
 
 
 <body class="m-5 rounded-lg">
-<div class="flex flex-col lg:flex-row overflow-hidden rounded-lg">
+<div class="flex flex-col lg:flex-row   overflow-hidden rounded-lg">
 
-<div  class="lg:w-1/3  md:w-1/4  w-full ody">
+<div  class="lg:w-1/3   sm:w-full w-full  bg-gradient-to-r from-black to-blue-500 ody">
  <div class="container mx-auto py-10">
 <div class="grid grid-cols-3 mb-10 m-2">
 <i   class="fa-solid fa-square-plus text-white text-2xl"></i>
@@ -42,7 +42,7 @@
     City</h1><!-- City-->
 </div>
 
-<div class=" flex gap-3 ">
+<div class=" flex gap-4 ">
 <i class="fa-regular fa-calendar-days text-yellow-200 mt-1"></i>
         <h3 id="date" class="front-bold  text-white ">Today</h3> <!-- Date -->
    
@@ -130,7 +130,11 @@
 
 
         <div class="content">
-            <div class="hourly-forecast bg-black" id="hourly-forecast"></div>
+
+            <div class="hourly-forecast bg-black " id="hourly-forecast">
+
+            </div>
+            
             <div class="chart-container bg-black ">
                 <canvas id="hourly-chart"></canvas>
             </div>
@@ -142,15 +146,15 @@
     </div>
 
  <!-- section 3-->
-<div class="m-5 mt-5 grid lg:grid-cols-3 md:grid-cos-3  grid-cols-1 gap-5 ">
+<div class="m-5 mt-5 grid lg:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-5 ">
   <!-- Humidity -->
-    <div class="card w-full bg-blue-200 shadow-2xl">
-        <div class="card-body">
+    <div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl  ">
+        <div class="card-body ">
             <div class="grid grid-cols-2 gap-20">
-          <h2 class="card-title ">Humidity</h2> 
-          <i class=" bg-black text-center fa-solid fa-droplet m-6 text-xl  text-yellow-200"></i>
+          <h2 class="card-title text-black ">Humidity</h2> 
+          <i class=" lg:px-0  px-4  bg-black text-center fa-solid fa-droplet m-6 text-xl  text-yellow-200"></i>
         </div>
-          <h3 id="humidity" class="  text-center text-3xl"> 0%</h3> <!-- Humidity -->
+          <h3 id="humidity" class=" text-black  text-center text-3xl"> 0%</h3> <!-- Humidity -->
 
         <div class="card-actions grid grid-cols-3 ">
             <div>
@@ -171,11 +175,11 @@
 
       <!-- Wind Speed -->
 
-      <div class="card w-full  bg-blue-200   shadow-2xl">
+      <div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl">
         <div class="card-body">
             <div class="grid grid-cols-2 gap-20">
-          <h2 class="card-title">Wind</h2> 
-          <i class="fa-solid fa-wind m-6 text-xl bg-black text-yellow-200"></i>       
+          <h2 class="card-title text-black  ">Wind</h2> 
+          <i class="lg:px-0  px-4   fa-solid fa-wind m-6 text-xl  bg-black text-yellow-200"></i>       
         </div>
         <h3 id="wind" class="text-black text-center text-3xl">0 km/h</h3> <!-- Wind Speed -->
       </div>
@@ -183,15 +187,15 @@
       
       
 <!-- Precipitation-->
-<div class="card w-full   bg-blue-200  shadow-2xl">
+<div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl">
     <div class="card-body">
         <div class="grid grid-cols-2 gap-20">
-      <h2 class="card-title ">Precipitation </h2> 
-      <i class="fa-solid text-center  fa-cloud-rain m-6 text-xl bg-black  text-yellow-200 "></i>
+      <h2 class="card-title text-black ">Precipitation </h2> 
+      <i class="lg:px-0  px-4  fa-solid text-center  fa-cloud-rain m-6 text-xl bg-black  text-yellow-200 "></i>
 
     </div>
   
-    <h3 id="precipitation" class="text-center text-3xl">0 mm</h3> <!-- Precipitation -->
+    <h3 id="precipitation" class="text-center text-black text-3xl">0 mm</h3> <!-- Precipitation -->
     <div class="card-actions grid grid-cols-10 ">
         <div>
     <h1 class=" ">0</h1>
@@ -241,13 +245,13 @@
       
 
 <!--UV Index  -->
-    <div class="card w-full   bg-blue-200  shadow-2xl">
+    <div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl ">
        <div class="card-body">
         <div class="grid grid-cols-2 gap-20">
-      <h2 class="card-title ">UV Index </h2> 
-      <i class="fa-solid fa-sun text-center m-6 text-xl bg-black text-yellow-200 "></i>
+      <h2 class="card-title text-black  ">UV Index </h2> 
+      <i class="lg:px-0  px-4   fa-solid fa-sun text-center m-6 text-xl bg-black text-yellow-200 "></i>
     </div>
-    <h3  class="text-center text-3xl">3 medium</h3> <!--UV Index  -->
+    <h3  class="text-center text-3xl text-black ">3 medium</h3> <!--UV Index  -->
 
 
     <div class="card-actions grid grid-cols-5 ">
@@ -281,13 +285,13 @@
 
         
 <!-- Feels Like -->
-      <div class="card w-full  bg-blue-200   shadow-2xl">
+      <div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl">
         <div class="card-body">
             <div class="grid grid-cols-2 gap-20">
-          <h2 class="card-title ">Feels-like</h2> 
-          <i class="fa-solid fa-temperature-full text-center m-6 text-xl bg-black   text-yellow-200 "></i>
+          <h2 class="card-title text-black ">Feels-like</h2> 
+          <i class="lg:px-0  px-4  fa-solid fa-temperature-full text-center m-6 text-xl bg-black   text-yellow-200 "></i>
         </div>
-     <h3 id="feels-like" class="text-center text-3xl">0 °C</h3> <!-- Feels Like -->
+     <h3 id="feels-like" class="text-center text-black  text-3xl">0 °C</h3> <!-- Feels Like -->
      <div class="card-actions ">
         <div class="grid grid-cols-3 gap-20" >
 <h1>0</h1>    
@@ -302,13 +306,13 @@
 
 
 <!--Change to rain -->
-<div class="card w-full   bg-blue-200   shadow-2xl">
+<div class="card w-full  bg-gradient-to-r from-white to-blue-600   shadow-3xl ">
     <div class="card-body">
         <div class="grid grid-cols-2 gap-20">
-      <h2 class="card-title ">Chance to rain</h2> 
-      <i class="fa-solid  fa-cloud-moon-rain  text-center m-6 text-xl bg-black  text-yellow-200  "></i>
+      <h2 class="card-title text-black ">Chance to rain</h2> 
+      <i class=" lg:px-0  px-4  fa-solid  fa-cloud-moon-rain  text-center m-6 text-xl bg-black  text-yellow-200  "></i>
     </div>
- <h3  class="text-center text-3xl">45 % </h3> <!-- Feels Like -->
+ <h3  class="text-center text-black  text-3xl">45 % </h3> <!-- Feels Like -->
  <div class="card-actions ">
     <div class="grid grid-cols-5 gap-6" >
 <h1>0</h1>    
