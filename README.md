@@ -1,6 +1,6 @@
 
 # Web-site name: weather-app
-# Tecnology use:
+# Technology use:
 - HTML,
 - CSS(tailwinds)
 - java-script
@@ -9,6 +9,12 @@
 -  Search options by City name.
 -  weather details.
 -  Hourly Weather Forecast
--  line chat by temperature
+-  temperature for the  bar chart.
+-  rain probability for doughnut chart.
+-  wind speed for radar chart.
+-  humidity  for polar area chart.
+-  pressure  for line chart.
+-  the feels like  for bar chart.
+
 
 ## live link:https://rezoanulhasan.github.io/weather-app/
