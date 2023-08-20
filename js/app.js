@@ -28,7 +28,7 @@ const searchTemperature = () => {
             fetch(hourlyForecastUrl)
                 .then(res => res.json())
                 .then(hourlyData => {
-                 displayHourlyForecast(hourlyData.list);
+                    displayHourlyForecast (hourlyData.list);
                 })
                 .catch(error => {
                     console.error('Error fetching hourly forecast:', error);
@@ -157,6 +157,31 @@ const displayHourlyForecast = hourlyForecast => {
         }]
     };
 
+    const feelsLikeChartData = {
+        labels: [],
+        datasets: [{
+            label: 'Feels Like (°C)',
+            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 2,
+            pointRadius: 4,
+            data: []
+        }]
+    };
+
+   
+    const pressureChartData = {
+        labels: [],
+        datasets: [{
+            label: 'Pressure (hPa)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor:' rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+            pointRadius: 4,
+            data: []
+        }]
+    };
+
     hourlyForecast.forEach(hour => {
         const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const temperature = hour.main.temp.toFixed(1);
@@ -164,6 +189,8 @@ const displayHourlyForecast = hourlyForecast => {
         const pop = hour.pop || 0;
         const weatherIcon = hour.weather[0].icon;
         const windSpeed = hour.wind.speed.toFixed(2);
+        const feelsLike = hour.main.feels_like.toFixed(1);
+        const pressure = hour.main.pressure;
 
         humidityChartData.labels.push(time);
         humidityChartData.datasets[0].data.push(humidity);
@@ -177,13 +204,21 @@ const displayHourlyForecast = hourlyForecast => {
         popChartData.labels.push(time);
         popChartData.datasets[0].data.push(pop);
 
+        feelsLikeChartData.labels.push(time);
+        feelsLikeChartData.datasets[0].data.push(feelsLike);
+
+    
+        pressureChartData.labels.push(time);
+        pressureChartData.datasets[0].data.push({ x: time, y: pressure, r: 8 }); // Using 'r' for bubble size
+
+
+
         const forecastItem = document.createElement('div');
         forecastItem.classList.add('hourly-forecast-item');
         forecastItem.innerHTML = `
             <div class="forecast-time">${time}</div>
             <div class="forecast-pop">Rain-${pop}%</div>
             <div class="weather-icon"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="Weather Icon"></div>
-        
         `;
 
         hourlyForecastContainer.appendChild(forecastItem);
@@ -222,4 +257,23 @@ const displayHourlyForecast = hourlyForecast => {
         data: humidityChartData,
         options: {}
     });
+
+    const feelsLikeChartCtx = document.getElementById('hourly-feels-like-chart').getContext('2d');
+    new Chart(feelsLikeChartCtx, {
+        type: 'bar',
+        data: feelsLikeChartData,
+        options: {}
+    });
+
+    const pressureChartCtx = document.getElementById('hourly-pressure-chart').getContext('2d');
+    new Chart(pressureChartCtx, {
+        type: 'line',
+        data: {
+            labels: pressureChartData.labels,
+            datasets: [pressureChartData.datasets[0]]
+        },
+        options: {}
+    });
+
+
 };
