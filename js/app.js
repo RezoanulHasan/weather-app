@@ -22,14 +22,13 @@ const searchTemperature = () => {
                 showPopup();
                 return;
             }
-
             displayCurrentWeather(data);
 
             const hourlyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
             fetch(hourlyForecastUrl)
                 .then(res => res.json())
                 .then(hourlyData => {
-                    displayHourlyForecast(hourlyData.list);
+                   displayHourlyForecast (hourlyData.list);
                 })
                 .catch(error => {
                     console.error('Error fetching hourly forecast:', error);
@@ -43,7 +42,7 @@ const searchTemperature = () => {
 
 
 
-//
+//console.log
 
 const setInnerText = (id, text) => {
     document.getElementById(id).innerText = text;
@@ -57,8 +56,8 @@ const displayCurrentWeather = temperature => {
     setInnerText('feels-like', `${temperature.main.feels_like}°C`); 
     setInnerText('humidity', ` ${temperature.main.humidity}%`);
     setInnerText('pressure', `${temperature.main.pressure} hPa`);
-    setInnerText('temp-min', `${temperature.main.temp_min}°C`);
-    setInnerText('temp-max', `${temperature.main.temp_max}°C`);
+    setInnerText('temp-min', `temp-min-${temperature.main.temp_min}°C`);
+    setInnerText('temp-max', `temp-max-${temperature.main.temp_max}°C`);
 
 
 const conditionText = temperature.weather[0].description === 'Rain'
@@ -96,34 +95,71 @@ setInnerText('date', `Today: ${date.toDateString()}`);//date
 }    
 
 
-
-     // weather hourly
+//hourly weather  
 const displayHourlyForecast = hourlyForecast => {
     const hourlyForecastContainer = document.getElementById('hourly-forecast');
     hourlyForecastContainer.innerHTML = '';
 
-    const chartData = {
+    const tempChartData = {
         labels: [],
         datasets: [{
             label: 'Temperature (°C)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
+            borderWidth: 2,
             pointRadius: 4,
+            data: []
+        }]
+    };
+
+    const popChartData = {
+        labels: [],
+        datasets: [{
+            label: 'Rain Probability (%)',
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                // Add more colors as needed
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(75, 192, 192, 1)',
+                // Add more colors as needed
+            ],
             borderWidth: 2,
             data: []
         }]
     };
 
+    const windSpeedChartData = {
+        labels: [],
+        datasets: [{
+            label: 'Wind Speed (m/s)',
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 2,
+            pointRadius: 4,
+            data: []
+        }]
+    };
 
     hourlyForecast.forEach(hour => {
         const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const temperature = hour.main.temp.toFixed(1);
         const pop = hour.pop || 0;
-        const weatherIcon = hour.weather[0].icon; 
+        const weatherIcon = hour.weather[0].icon;
+        const windSpeed = hour.wind.speed.toFixed(2);
 
-        chartData.labels.push(time);
-        chartData.datasets[0].data.push(temperature);
+        windSpeedChartData.labels.push(time);
+        windSpeedChartData.datasets[0].data.push(windSpeed);
+
+        tempChartData.labels.push(time);
+        tempChartData.datasets[0].data.push(temperature);
+
+        popChartData.labels.push(time);
+        popChartData.datasets[0].data.push(pop);
 
         const forecastItem = document.createElement('div');
         forecastItem.classList.add('hourly-forecast-item');
@@ -131,16 +167,16 @@ const displayHourlyForecast = hourlyForecast => {
             <div class="forecast-time">${time}</div>
             <div class="forecast-pop">Rain-${pop}%</div>
             <div class="weather-icon"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="Weather Icon"></div>
-            <div class="forecast-temperature">tem-${temperature}°C</div>
+        
         `;
 
         hourlyForecastContainer.appendChild(forecastItem);
     });
 
-    const ctx = document.getElementById('hourly-chart').getContext('2d');
-    new Chart(ctx, {
+    const tempChartCtx = document.getElementById('hourly-temp-chart').getContext('2d');
+    new Chart(tempChartCtx, {
         type: 'line',
-        data: chartData,
+        data: tempChartData,
         options: {
             scales: {
                 y: {
@@ -149,4 +185,18 @@ const displayHourlyForecast = hourlyForecast => {
             }
         }
     });
-} 
+
+    const popChartCtx = document.getElementById('hourly-pop-chart').getContext('2d');
+    new Chart(popChartCtx, {
+        type: 'doughnut',
+        data: popChartData,
+        options: {}
+    });
+
+    const windSpeedChartCtx = document.getElementById('hourly-wind-speed-chart').getContext('2d');
+    new Chart(windSpeedChartCtx, {
+        type: 'radar',
+        data: windSpeedChartData,
+        options: {}
+    });
+};

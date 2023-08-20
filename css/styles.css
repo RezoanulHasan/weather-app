@@ -26,11 +26,7 @@
     color: aliceblue;
 }
 
-.chart-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
+
 .ody{
     background-color: #1b1a1a;
     background-size: cover;
