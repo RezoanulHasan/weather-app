@@ -13,9 +13,8 @@ const showPopup = () => {
 
 const searchTemperature = () => {
     const city = document.getElementById('city-name').value;
-    //const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&_=${Date.now()}`;
-
+    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+  
     fetch(currentWeatherUrl)
     .then(res => res.json())
     .then(data => {
@@ -46,8 +45,7 @@ const searchTemperature = () => {
 
 
 
-// console.log
-
+// console.log 
 const setInnerText = (id, text) => {
     document.getElementById(id).innerText = text;
 }
@@ -187,7 +185,7 @@ const displayHourlyForecast = hourlyForecast => {
     };
 
     hourlyForecast.forEach(hour => {
-        const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const time = new Date(hour.dt*1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const temperature = hour.main.temp.toFixed(1);
         const humidity = hour.main.humidity.toFixed(2);
         const pop = hour.pop || 0;
