@@ -28,7 +28,7 @@ const searchTemperature = () => {
             fetch(hourlyForecastUrl)
                 .then(res => res.json())
                 .then(hourlyData => {
-                   displayHourlyForecast (hourlyData.list);
+                 displayHourlyForecast(hourlyData.list);
                 })
                 .catch(error => {
                     console.error('Error fetching hourly forecast:', error);
@@ -42,7 +42,7 @@ const searchTemperature = () => {
 
 
 
-//console.log
+// console.log
 
 const setInnerText = (id, text) => {
     document.getElementById(id).innerText = text;
@@ -145,12 +145,28 @@ const displayHourlyForecast = hourlyForecast => {
         }]
     };
 
+    const humidityChartData = {
+        labels: [],
+        datasets: [{
+            label: 'Humidity (%)',
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 2,
+            pointRadius: 4,
+            data: []
+        }]
+    };
+
     hourlyForecast.forEach(hour => {
         const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const temperature = hour.main.temp.toFixed(1);
+        const humidity = hour.main.humidity.toFixed(2);
         const pop = hour.pop || 0;
         const weatherIcon = hour.weather[0].icon;
         const windSpeed = hour.wind.speed.toFixed(2);
+
+        humidityChartData.labels.push(time);
+        humidityChartData.datasets[0].data.push(humidity);
 
         windSpeedChartData.labels.push(time);
         windSpeedChartData.datasets[0].data.push(windSpeed);
@@ -175,7 +191,7 @@ const displayHourlyForecast = hourlyForecast => {
 
     const tempChartCtx = document.getElementById('hourly-temp-chart').getContext('2d');
     new Chart(tempChartCtx, {
-        type: 'line',
+        type: 'bar',
         data: tempChartData,
         options: {
             scales: {
@@ -197,6 +213,13 @@ const displayHourlyForecast = hourlyForecast => {
     new Chart(windSpeedChartCtx, {
         type: 'radar',
         data: windSpeedChartData,
+        options: {}
+    });
+
+    const humidityChartCtx = document.getElementById('hourly-humidity-chart').getContext('2d');
+    new Chart(humidityChartCtx, {
+        type: 'polarArea',
+        data: humidityChartData,
         options: {}
     });
 };
